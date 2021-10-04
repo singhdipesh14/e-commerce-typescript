@@ -9,7 +9,7 @@ import {
 	CLEAR_FILTERS,
 } from "../actions"
 
-const filter_reducer = (state, action) => {
+const filter_reducer = (state: any, action: any) => {
 	return state
 	throw new Error(`No Matching "${action.type}" - action type`)
 }

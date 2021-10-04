@@ -6,7 +6,7 @@ import {
 	TOGGLE_CART_ITEM_AMOUNT,
 } from "../actions"
 
-const cart_reducer = (state, action) => {
+const cart_reducer = (state: any, action: any) => {
 	return state
 	throw new Error(`No Matching "${action.type}" - action type`)
 }

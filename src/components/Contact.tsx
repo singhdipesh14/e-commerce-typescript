@@ -1,8 +1,48 @@
+import { format } from "path"
 import React from "react"
 import styled from "styled-components"
 
 const Contact = () => {
-	return <h4>contact section</h4>
+	const form_ref = React.useRef<HTMLFormElement>(null)
+	const submitForm = () => {
+		if (form_ref.current) {
+			form_ref.current.submit()
+			const input = form_ref.current.getElementsByTagName("input")[0]
+			input.value = ""
+		}
+	}
+	return (
+		<Wrapper>
+			<div className="section-center">
+				<h3>Join our Newsletter and get 20% off</h3>
+				<div className="content">
+					<p>
+						Lorem ipsum dolor sit amet consectetur, adipisicing
+						elit. Mollitia porro minus reiciendis, cum ipsam vel quo
+						facilis expedita nostrum non!
+					</p>
+					<form
+						className="contact-form"
+						action="https://formspree.io/f/mleavbvg"
+						method="POST"
+						ref={form_ref}>
+						<input
+							type="email"
+							className="form-input"
+							placeholder="Email"
+							name="Email"
+						/>
+						<button
+							type="button"
+							className="submit-btn"
+							onClick={submitForm}>
+							Subscribe
+						</button>
+					</form>
+				</div>
+			</div>
+		</Wrapper>
+	)
 }
 const Wrapper = styled.section`
 	padding: 5rem 0;
@@ -25,7 +65,7 @@ const Wrapper = styled.section`
 	.submit-btn {
 		font-size: 1rem;
 		padding: 0.5rem 1rem;
-		border: 2px solid var(--clr-black);
+		border: 0.5px solid var(--clr-grey-1);
 	}
 	.form-input {
 		border-right: none;
@@ -38,7 +78,7 @@ const Wrapper = styled.section`
 		border-bottom-right-radius: var(--radius);
 	}
 	.form-input::placeholder {
-		color: var(--clr-black);
+		color: var(--clr-grey);
 		text-transform: capitalize;
 	}
 	.submit-btn {

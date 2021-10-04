@@ -6,8 +6,23 @@ import { useProductsContext } from "../context/products_context"
 import { useCartContext } from "../context/cart_context"
 import { useUserContext } from "../context/user_context"
 
-const CartButtons = () => {
-	return <h4>cart buttons </h4>
+const CartButtons: React.FC = () => {
+	const { closeSidebar } = useProductsContext()
+	return (
+		<Wrapper className="cart-btn-wrapper">
+			<Link to="/cart" className="cart-btn" onClick={closeSidebar}>
+				Cart
+				<span className="cart-container">
+					<FaShoppingCart />
+					<span className="cart-value">12</span>
+				</span>
+			</Link>
+			<button type="button" className="auth-btn">
+				login
+				<FaUserPlus />
+			</button>
+		</Wrapper>
+	)
 }
 
 const Wrapper = styled.div`

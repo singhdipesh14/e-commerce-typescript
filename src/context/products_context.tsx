@@ -1,25 +1,35 @@
 import axios from "axios"
 import React, { useContext, useEffect, useReducer } from "react"
-import reducer from "../reducers/products_reducer"
+import reducer, { typeEnum } from "../reducers/products_reducer"
 import { products_url as url } from "../utils/constants"
-import {
-	SIDEBAR_OPEN,
-	SIDEBAR_CLOSE,
-	GET_PRODUCTS_BEGIN,
-	GET_PRODUCTS_SUCCESS,
-	GET_PRODUCTS_ERROR,
-	GET_SINGLE_PRODUCT_BEGIN,
-	GET_SINGLE_PRODUCT_SUCCESS,
-	GET_SINGLE_PRODUCT_ERROR,
-} from "../actions"
 
-const initialState = {}
+const initialState = {
+	isSidebarOpen: false,
+}
 
-const ProductsContext = React.createContext()
+type contextType = {
+	openSidebar: () => void
+	closeSidebar: () => void
+	isSidebarOpen: boolean
+}
+
+const ProductsContext = React.createContext({} as contextType)
 
 export const ProductsProvider: React.FC = ({ children }) => {
+	const [state, dispatch] = useReducer(reducer, initialState)
+	const openSidebar = () => {
+		dispatch({ type: typeEnum.SIDEBAR_OPEN, payload: {} })
+	}
+	const closeSidebar = () => {
+		dispatch({ type: typeEnum.SIDEBAR_CLOSE, payload: {} })
+	}
 	return (
-		<ProductsContext.Provider value="products context">
+		<ProductsContext.Provider
+			value={{
+				openSidebar,
+				closeSidebar,
+				isSidebarOpen: state.isSidebarOpen,
+			}}>
 			{children}
 		</ProductsContext.Provider>
 	)

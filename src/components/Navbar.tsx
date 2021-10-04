@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import logo from "../assets/logo.svg"
+import Logo from "../assets/logo.svg"
 import { FaBars } from "react-icons/fa"
 import { Link } from "react-router-dom"
 import { links } from "../utils/constants"
@@ -9,7 +9,31 @@ import { useProductsContext } from "../context/products_context"
 import { useUserContext } from "../context/user_context"
 
 const Nav = () => {
-	return <h4>navbar</h4>
+	const { openSidebar } = useProductsContext()
+	return (
+		<NavContainer>
+			<div className="nav-center">
+				<div className="nav-header">
+					<Link to="/">
+						<img src={Logo} alt="Comfy Sloth" />
+					</Link>
+					<button className="nav-toggle" onClick={openSidebar}>
+						<FaBars />
+					</button>
+				</div>
+				<ul className="nav-links">
+					{links.map((item, idx) => {
+						return (
+							<li key={item.id}>
+								<Link to={item.url}>{item.text}</Link>
+							</li>
+						)
+					})}
+				</ul>
+				<CartButtons></CartButtons>
+			</div>
+		</NavContainer>
+	)
 }
 
 const NavContainer = styled.nav`

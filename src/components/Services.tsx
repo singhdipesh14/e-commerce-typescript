@@ -3,7 +3,35 @@ import styled from "styled-components"
 import { services } from "../utils/constants"
 
 const Services = () => {
-	return <h4>services </h4>
+	return (
+		<Wrapper>
+			<div className="section-center">
+				<article>
+					<h3>
+						custom furniture <br />
+						built only for you
+					</h3>
+					<p>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit.
+						Maiores laudantium sapiente nesciunt explicabo
+						temporibus sed quaerat voluptatibus aspernatur porro
+						reiciendis?
+					</p>
+				</article>
+				<div className="services-center">
+					{services.map((service) => {
+						return (
+							<article key={service.id} className="service">
+								<span className="icon">{service.icon}</span>
+								<h4>{service.title}</h4>
+								<p>{service.text}</p>
+							</article>
+						)
+					})}
+				</div>
+			</div>
+		</Wrapper>
+	)
 }
 
 const Wrapper = styled.section`

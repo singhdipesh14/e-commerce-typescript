@@ -10,7 +10,7 @@ import {
 
 const initialState = {}
 
-const CartContext = React.createContext()
+const CartContext = React.createContext({})
 
 export const CartProvider: React.FC = ({ children }) => {
 	return (

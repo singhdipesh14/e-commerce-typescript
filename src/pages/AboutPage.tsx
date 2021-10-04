@@ -4,7 +4,28 @@ import { PageHero } from "../components"
 import aboutImg from "../assets/hero-bcg.jpeg"
 
 const AboutPage = () => {
-	return <h4>about page</h4>
+	return (
+		<main>
+			<PageHero title="about" />
+			<Wrapper className="page section section-center">
+				<img src={aboutImg} alt="nice-desk" />
+				<article>
+					<div className="title">
+						<h2>our story</h2>
+						<div className="underline"></div>
+					</div>
+					<p>
+						I'm baby pop-up coloring book leggings pork belly seitan
+						cred vaporware direct trade authentic la croix
+						stumptown. Unicorn hexagon taxidermy letterpress palo
+						santo scenester. Tilde keytar keffiyeh man braid prism
+						literally vape cred bicycle rights thundercats umami
+						VHS. DIY locavore tattooed echo park tbh godard.
+					</p>
+				</article>
+			</Wrapper>
+		</main>
+	)
 }
 
 const Wrapper = styled.section`

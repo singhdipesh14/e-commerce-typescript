@@ -14,7 +14,7 @@ import { useProductsContext } from "./products_context"
 
 const initialState = {}
 
-const FilterContext = React.createContext()
+const FilterContext = React.createContext({})
 
 export const FilterProvider: React.FC = ({ children }) => {
 	return (
