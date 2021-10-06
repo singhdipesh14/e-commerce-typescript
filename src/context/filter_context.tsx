@@ -1,6 +1,4 @@
-import { type } from "os"
-import React, { useEffect, useContext, useReducer, ContextType } from "react"
-import { SORT_PRODUCTS } from "../actions"
+import React, { useEffect, useContext, useReducer } from "react"
 import reducer, { typeEnum } from "../reducers/filter_reducer"
 
 import { useProductsContext, ProductsType } from "./products_context"
@@ -10,6 +8,16 @@ export const initialState = {
 	all_products: [] as ProductsType,
 	grid_view: true,
 	sort: "price-lowest",
+	filters: {
+		text: "",
+		company: "all",
+		category: "all",
+		color: "all",
+		min_price: 0,
+		max_price: 0,
+		price: 0,
+		shipping: false,
+	},
 }
 
 type contextType = {
@@ -19,6 +27,9 @@ type contextType = {
 	toggle: (bool: boolean) => void
 	updateSort: (e: React.ChangeEvent<HTMLSelectElement>) => void
 	sort: string
+	updateFilters: (e: React.ChangeEvent<any>) => void
+	clearFilters: () => void
+	filters: typeof initialState.filters
 }
 
 const FilterContext = React.createContext({} as contextType)
@@ -38,7 +49,12 @@ export const FilterProvider: React.FC = ({ children }) => {
 
 	useEffect(() => {
 		dispatch({ type: typeEnum.SORT_PRODUCTS })
-	}, [products, state.sort])
+		console.log("sorting")
+	}, [products, state.sort, state.filtered_products])
+
+	useEffect(() => {
+		dispatch({ type: typeEnum.FILTER_PRODUCTS })
+	}, [products, state.filters])
 
 	const toggleView = (bool: boolean) => {
 		if (bool) dispatch({ type: typeEnum.SET_GRIDVIEW })
@@ -49,6 +65,24 @@ export const FilterProvider: React.FC = ({ children }) => {
 		const value = e.target.value
 		dispatch({ type: typeEnum.UPDATE_SORT, payload: { sortValue: value } })
 	}
+
+	const updateFilters = (e: React.ChangeEvent<any>) => {
+		let name: string = e.target.name
+		let value: string | number | boolean = e.target.value
+		if (name === "price") value = Number(value)
+		if (name === "shipping") value = e.target.checked
+		dispatch({
+			type: typeEnum.UPDATE_FILTERS,
+			payload: {
+				filterName: name,
+				filterValue: value,
+			},
+		})
+	}
+
+	const clearFilters = () => {
+		dispatch({ type: typeEnum.CLEAR_FILTERS })
+	}
 	return (
 		<FilterContext.Provider
 			value={{
@@ -58,6 +92,9 @@ export const FilterProvider: React.FC = ({ children }) => {
 				toggle: toggleView,
 				updateSort,
 				sort: state.sort,
+				updateFilters,
+				clearFilters,
+				filters: state.filters,
 			}}>
 			{children}
 		</FilterContext.Provider>
