@@ -16,7 +16,10 @@ export enum typeEnum {
 }
 type actionType = {
 	type: typeEnum
-	payload?: ProductsType | SingleProductPageType
+	payload?: {
+		products?: ProductsType
+		singleProduct?: SingleProductPageType
+	}
 }
 
 const products_reducer = (state: typeof initialState, action: actionType) => {
@@ -28,17 +31,19 @@ const products_reducer = (state: typeof initialState, action: actionType) => {
 		case typeEnum.GET_PRODUCTS_BEGIN:
 			return { ...state, products_loading: true }
 		case typeEnum.GET_PRODUCTS_SUCCESS:
-			if (action.payload && action.payload instanceof ProductsType) {
-				const featured_products = action.payload.filter((product) => {
-					if (product.featured) {
-						if (product.featured === true) return true
+			if (action.payload && action.payload.products) {
+				const featured_products = action.payload.products.filter(
+					(product) => {
+						if (product.featured) {
+							if (product.featured === true) return true
+						}
+						return false
 					}
-					return false
-				})
+				)
 				return {
 					...state,
 					products_loading: false,
-					products: action.payload,
+					products: action.payload.products,
 					featured_products,
 				}
 			}
@@ -54,10 +59,24 @@ const products_reducer = (state: typeof initialState, action: actionType) => {
 				single_products_error: false,
 			}
 		case typeEnum.GET_SINGLE_PRODUCT_SUCCESS:
-			if (action.payload) {
-				return { ...state, single_products: action.payload }
+			if (action.payload && action.payload.singleProduct) {
+				return {
+					...state,
+					single_products: action.payload.singleProduct,
+					single_products_loading: false,
+				}
 			}
-			return { ...state }
+			return {
+				...state,
+				single_products_loading: false,
+				single_products_error: true,
+			}
+		case typeEnum.GET_SINGLE_PRODUCT_ERROR:
+			return {
+				...state,
+				single_products_loading: false,
+				single_products_error: true,
+			}
 		default:
 			throw new Error(`No Matching "${action.type}" - action type`)
 	}

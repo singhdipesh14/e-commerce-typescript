@@ -1,13 +1,37 @@
 import React, { useState } from "react"
 import styled from "styled-components"
+import { Image } from "../context/products_context"
 
-const ProductImages = () => {
-	return <h4>product images</h4>
+const ProductImages: React.FC<{ images: Image[] }> = ({ images }) => {
+	const [main, setMain] = useState<Image>(
+		images ? images[0] : ({ url: "" } as Image)
+	)
+	console.log(main)
+
+	return (
+		<Wrapper>
+			<img src={main.url} alt={main.filename} />
+			<div className="gallery">
+				{images &&
+					images.map((image) => {
+						return (
+							<img
+								key={image.id}
+								src={image.url}
+								alt={image.filename}
+								className={main.id === image.id ? "active" : ""}
+								onClick={() => setMain(image)}
+							/>
+						)
+					})}
+			</div>
+		</Wrapper>
+	)
 }
 
 const Wrapper = styled.section`
 	.main {
-		height: 600px;
+		height: 400px;
 	}
 	img {
 		width: 100%;
