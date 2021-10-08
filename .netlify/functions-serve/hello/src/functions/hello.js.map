@@ -1,8 +1,0 @@
-{
-  "version": 3,
-  "sources": ["functions/hello.ts"],
-  "sourceRoot": "C:/Users/singh/AppData/Local/Temp/tmp-16264-3YSnx2O9WK4c",
-  "sourcesContent": ["// domain/.netlify/functions/hello\r\n\r\nexports.handler = async function (event: any, context: any) {\r\n\treturn {\r\n\t\tstatusCode: 200,\r\n\t\tbody: \"hello world\",\r\n\t}\r\n}\r\n"],
-  "mappings": ";AAEA,QAAQ,UAAU,eAAgB,OAAY,SAAc;AAC3D,SAAO;AAAA,IACN,YAAY;AAAA,IACZ,MAAM;AAAA;AAAA;",
-  "names": []
-}
