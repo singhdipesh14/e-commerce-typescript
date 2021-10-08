@@ -1,10 +1,21 @@
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
-import { useAuth0 } from "@auth0/auth0-react"
-// will remove later
 import { useUserContext } from "../context/user_context"
 
-const PrivateRoute = () => {
-	return <h4>Private Route</h4>
+type privateRouteType = {
+	exact: boolean
+	path: string
+}
+
+const PrivateRoute: React.FC<privateRouteType> = ({ children, ...rest }) => {
+	const { isAuthenticated } = useUserContext()
+
+	return (
+		<Route
+			{...rest}
+			render={() => {
+				return isAuthenticated ? children : <Redirect to="/" />
+			}}></Route>
+	)
 }
 export default PrivateRoute

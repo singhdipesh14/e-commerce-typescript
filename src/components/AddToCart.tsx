@@ -6,10 +6,13 @@ import { useCartContext } from "../context/cart_context"
 import AmountButtons from "./AmountButtons"
 import { SingleProductPageType } from "../context/products_context"
 const AddToCart: React.FC<{ product: SingleProductPageType }> = ({
-	product: { id, colors, stock },
+	product,
 }) => {
+	const { id, colors, stock } = product
 	const [mainColor, setMainColor] = useState(colors[0])
 	const [amount, setAmount] = useState(1)
+
+	const { addToCart } = useCartContext()
 
 	const increase = () => {
 		const newAmount = amount + 1
@@ -46,7 +49,10 @@ const AddToCart: React.FC<{ product: SingleProductPageType }> = ({
 
 			<div className="btn-container">
 				<AmountButtons amount={amount} increase={increase} decrease={decrease} />
-				<Link to="/cart" className="btn">
+				<Link
+					to="/cart"
+					className="btn"
+					onClick={() => addToCart({ amount, color: mainColor, id, product })}>
 					Add to cart
 				</Link>
 			</div>

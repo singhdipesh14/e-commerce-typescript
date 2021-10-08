@@ -49,7 +49,6 @@ export const FilterProvider: React.FC = ({ children }) => {
 
 	useEffect(() => {
 		dispatch({ type: typeEnum.SORT_PRODUCTS })
-		console.log("sorting")
 	}, [products, state.sort, state.filtered_products])
 
 	useEffect(() => {

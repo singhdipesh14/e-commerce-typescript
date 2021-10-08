@@ -1,4 +1,3 @@
-import { format } from "path"
 import React from "react"
 import styled from "styled-components"
 
@@ -17,9 +16,8 @@ const Contact = () => {
 				<h3>Join our Newsletter and get 20% off</h3>
 				<div className="content">
 					<p>
-						Lorem ipsum dolor sit amet consectetur, adipisicing
-						elit. Mollitia porro minus reiciendis, cum ipsam vel quo
-						facilis expedita nostrum non!
+						Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia porro
+						minus reiciendis, cum ipsam vel quo facilis expedita nostrum non!
 					</p>
 					<form
 						className="contact-form"
@@ -32,10 +30,7 @@ const Contact = () => {
 							placeholder="Email"
 							name="Email"
 						/>
-						<button
-							type="button"
-							className="submit-btn"
-							onClick={submitForm}>
+						<button type="button" className="submit-btn" onClick={submitForm}>
 							Subscribe
 						</button>
 					</form>

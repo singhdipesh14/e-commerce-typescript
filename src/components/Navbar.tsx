@@ -10,6 +10,7 @@ import { useUserContext } from "../context/user_context"
 
 const Nav = () => {
 	const { openSidebar } = useProductsContext()
+	const { isAuthenticated } = useUserContext()
 	return (
 		<NavContainer>
 			<div className="nav-center">
@@ -29,6 +30,11 @@ const Nav = () => {
 							</li>
 						)
 					})}
+					{isAuthenticated && (
+						<li>
+							<Link to="/checkout">Checkout</Link>
+						</li>
+					)}
 				</ul>
 				<CartButtons></CartButtons>
 			</div>

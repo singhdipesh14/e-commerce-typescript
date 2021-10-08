@@ -10,18 +10,13 @@ import { useUserContext } from "../context/user_context"
 
 const Sidebar = () => {
 	const { isSidebarOpen, closeSidebar } = useProductsContext()
+	const { isAuthenticated } = useUserContext()
 	return (
 		<SidebarContainer>
-			<aside
-				className={`${
-					isSidebarOpen ? "sidebar show-sidebar" : "sidebar"
-				}`}>
+			<aside className={`${isSidebarOpen ? "sidebar show-sidebar" : "sidebar"}`}>
 				<div className="sidebar-header">
 					<img src={logo} alt="comfy sloth" className="logo" />
-					<button
-						className="close-btn"
-						type="button"
-						onClick={closeSidebar}>
+					<button className="close-btn" type="button" onClick={closeSidebar}>
 						<FaTimes />
 					</button>
 				</div>
@@ -33,11 +28,13 @@ const Sidebar = () => {
 							</li>
 						)
 					})}
-					<li>
-						<Link to="/checkout" onClick={closeSidebar}>
-							Checkout
-						</Link>
-					</li>
+					{isAuthenticated && (
+						<li>
+							<Link to="/checkout" onClick={closeSidebar}>
+								Checkout
+							</Link>
+						</li>
+					)}
 				</ul>
 				<CartButtons></CartButtons>
 			</aside>

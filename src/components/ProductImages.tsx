@@ -10,7 +10,7 @@ const ProductImages: React.FC<{ images: Image[] }> = ({ images }) => {
 
 	return (
 		<Wrapper>
-			<img src={main.url} alt={main.filename} />
+			<img src={main.url} alt={main.filename} className="main" />
 			<div className="gallery">
 				{images &&
 					images.map((image) => {

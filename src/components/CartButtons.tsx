@@ -8,19 +8,37 @@ import { useUserContext } from "../context/user_context"
 
 const CartButtons: React.FC = () => {
 	const { closeSidebar } = useProductsContext()
+	const { total_items, clearCart } = useCartContext()
+	const { loginWithRedirect, isAuthenticated, logout } = useUserContext()
 	return (
 		<Wrapper className="cart-btn-wrapper">
 			<Link to="/cart" className="cart-btn" onClick={closeSidebar}>
 				Cart
 				<span className="cart-container">
 					<FaShoppingCart />
-					<span className="cart-value">12</span>
+					<span className="cart-value">{total_items}</span>
 				</span>
 			</Link>
-			<button type="button" className="auth-btn">
-				login
-				<FaUserPlus />
-			</button>
+			{isAuthenticated ? (
+				<button
+					type="button"
+					className="auth-btn"
+					onClick={() => {
+						clearCart()
+						logout({ returnTo: window.location.origin })
+					}}>
+					logout
+					<FaUserMinus />
+				</button>
+			) : (
+				<button
+					type="button"
+					className="auth-btn"
+					onClick={() => loginWithRedirect()}>
+					login
+					<FaUserPlus />
+				</button>
+			)}
 		</Wrapper>
 	)
 }
